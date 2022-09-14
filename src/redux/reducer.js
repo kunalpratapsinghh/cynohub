@@ -2,7 +2,7 @@ let signupdata = JSON.parse(localStorage.getItem("signupdata")) || [];
 const initialstate = { isAuth: false, data: [] };
 
 export const reducer = (state = initialstate, { type, payload }) => {
-  console.log(type, payload);
+  // console.log(type, payload);
   switch (type) {
     case "SIGNUP": {
       if (
@@ -59,17 +59,26 @@ export const reducer = (state = initialstate, { type, payload }) => {
           data: state.data.filter((el) => {
             let regex = new RegExp(`${payload.text}`, "gi");
             return el.category["name"].match(regex);
-          })
+          }),
         };
       }
-      else if (payload.type === "description" || payload.type==="title") {
+      // payload.type==="title"
+      else if (payload.type === "description") {
         state = {
           ...state,
           data: state.data.filter((el) => {
             let regex = new RegExp(`${payload.text}`, "gi");
             return el.description.match(regex);
           }),
-        };
+        }}
+        else if (payload.type === "title") {
+          state = {
+            ...state,
+            data: state.data.filter((el) => {
+              let regex = new RegExp(`${payload.text}`, "gi");
+              return el.title.match(regex);
+            }),
+          };
       } else {
         state = {
           ...state,
@@ -80,15 +89,17 @@ export const reducer = (state = initialstate, { type, payload }) => {
     }
     case "SORT": {
       let key = payload.type || "id";
-      console.log(key);
+      // console.log(key);
       if (payload.type === "category") {
         if (payload.checked === false) {
-          state={...state,data:state.data.sort((a,b)=>{
-              if(a[key]["name"]>b[key]["name"]) return 1;
-              if(a[key]["name"]<b[key]["name"]) return -1;
-              if(a[key]["name"]===b[key]["name"]) return 0;
-          })}
-         
+          state = {
+            ...state,
+            data: state.data.sort((a, b) => {
+              if (a[key]["name"] > b[key]["name"]) return 1;
+              if (a[key]["name"] < b[key]["name"]) return -1;
+              if (a[key]["name"] === b[key]["name"]) return 0;
+            }),
+          };
         } else {
           state = {
             ...state,
@@ -113,7 +124,7 @@ export const reducer = (state = initialstate, { type, payload }) => {
           state = {
             ...state,
             data: state.data.sort((a, b) => {
-              if (a[key]< b[key]) return 1;
+              if (a[key] < b[key]) return 1;
               if (a[key] > b[key]) return -1;
               if (a[key] == b[key]) return 0;
             }),
@@ -122,9 +133,14 @@ export const reducer = (state = initialstate, { type, payload }) => {
       }
       return state;
     }
-    case "SET":{
-        state={...state,data:state.data.map((el)=>el.id===payload.id?{...payload}:el)}
-        return state
+    case "SET": {
+      state = {
+        ...state,
+        data: state.data.map((el) =>
+          el.id === payload.id ? { ...payload } : el
+        ),
+      };
+      return state;
     }
     default: {
       return state;

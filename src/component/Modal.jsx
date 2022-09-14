@@ -8,11 +8,11 @@ const Modal = () => {
   const { data } = useSelector((state) => state);
   const dispatcher=useDispatch()
   const { id } = useParams();
-  console.log(id);
+  // console.log(id);
   let x = data.filter((el) => el.id == id);
   const [newdata, setdata] = useState(x[0]);
 
-  console.log(newdata);
+  // console.log(newdata);
 
   const handlechange = (e) => {
     const { name, value } = e.target;
