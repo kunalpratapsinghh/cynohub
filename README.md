@@ -1,6 +1,7 @@
 <h1>Authentication & Api call</h1> 
 <a href="https://cynohubkunal.netlify.app/">Live Site</a>
-<p>This Project consist signup snd login with the help of mongoDB database, without login you will not be able to see any pages</p>
+<p>This Project consist signup snd login with the help of mongoDB database, without login you will not be able to see any pages .
+For the UI ,Chakra-UI is used.</p>
 <h2>This is an Individual project :</h2>
 <br>
 <a href="https://github.com/kunalpratapsinghh">Kunal Singh</a>
